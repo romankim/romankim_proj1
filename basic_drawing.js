@@ -1,3 +1,4 @@
+
 // a demonstration program using the graphics library
 (function () {
 	// define some colors
