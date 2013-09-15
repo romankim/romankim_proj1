@@ -1,6 +1,7 @@
 
 // a demonstration program using the graphics library
 (function () {
+    
 	// define some colors
 	var black = Color(0,0,0);
 	var red = Color(255,0,0);
@@ -9,30 +10,78 @@
     
 	// create the drawing pad object and associate with the canvas
 	pad = Pad(document.getElementById('canvas'));
-	pad.clear();
+    pad2 = Pad(document.getElementById('canvas2'));
+    pad3 = Pad(document.getElementById('canvas3'));
     
-	// set constants to be able to scale to any canvas size
-	var MAX_X = 100;
-	var MAX_Y = 100;
-	var x_factor = pad.get_width() / MAX_X;
-	var y_factor = pad.get_height() / MAX_Y;
-  
-	// draw a box
-	pad.draw_rectangle(Coord(0, 0), pad.get_width(), pad.get_height(), 10, black);
+    var X_SIZE = 40;
+    var Y_SIZE = 40;
+    
+    board1 = Board(X_SIZE, Y_SIZE,start_state=1);
+    board2 = Board(X_SIZE, Y_SIZE,start_state=2);
+    board3 = Board(X_SIZE, Y_SIZE,start_state=3);
+    var GRIDSIZE_X = pad.get_width() / X_SIZE;
+    var GRIDSIZE_Y = pad.get_height() / Y_SIZE;
+    
+    paint = function() {
+        pad.clear();
+        pad2.clear();
+        pad3.clear();
+       
+        for(var i = 0; i < X_SIZE; i++) {
+            for(var j = 0; j < Y_SIZE; j++) {
+                if(board1.grid_array[i][j]===1) {
+                    pad.draw_rectangle(Coord(i*GRIDSIZE_X, j*GRIDSIZE_Y), GRIDSIZE_X,
+                    GRIDSIZE_Y, 1, green,green);
+                }
+                if(board2.grid_array[i][j]===1) {
+                    pad2.draw_rectangle(Coord(i*GRIDSIZE_X, j*GRIDSIZE_Y), GRIDSIZE_X,
+                    GRIDSIZE_Y, 1, green,green);
+                }
+                if(board3.grid_array[i][j]===1) {
+                    pad3.draw_rectangle(Coord(i*GRIDSIZE_X, j*GRIDSIZE_Y), GRIDSIZE_X,
+                    GRIDSIZE_Y, 1, green,green);
+                }
+            }
+        }    
+        
+        pad.draw_rectangle(Coord(0,0), pad.get_width(), pad.get_height(), 5, black);
+        pad2.draw_rectangle(Coord(0,0), pad.get_width(), pad.get_height(), 5, black);
+        pad3.draw_rectangle(Coord(0,0), pad.get_width(), pad.get_height(), 5, black);
+    }
+    
+    paint();
+    
+    var stepFunction = function() {
+        board1.step();
+        board2.step();
+        board3.step();
+        paint();
+    }
+    
+    //intervalVar = setInterval(stepFunction, 250);
+    looping = false;
+    
+    var stopFunction = function() {
+        if(looping) {
+            console.log("stop");
+            looping = false;
+            clearInterval(intervalVar);
+            looping = false;
+        }
+    }
+    
+    var resumeFunction = function() {
+        if(!looping) {
+            console.log("resume");
+            intervalVar = setInterval(stepFunction, 250);
+            looping = true;
+        }
+    }
+    
+        
+    document.getElementById("stopbutton").onclick = stopFunction;
+    document.getElementById("resumebutton").onclick = resumeFunction;
+    
+	}) ();
 
-	// draw some circles and squares inside
-	var RADIUS = 5;
-	var LINE_WIDTH = 2;
-	for (var i = 10; i < MAX_X; i = i + 10) {
-		for (var j = 10; j < MAX_Y; j = j + 10) {
-			// select circle or square according some arbitrary criterion
-			if (i % 20 == j % 20) {
-				pad.draw_circle(Coord(i*x_factor, j*y_factor),
-					RADIUS, LINE_WIDTH, green, green);
-			} else {
-				pad.draw_rectangle(Coord(i*x_factor-RADIUS, j*y_factor-RADIUS),
-					RADIUS*2, RADIUS*2, LINE_WIDTH, red);
-				}
-			}
-		}
-	}) ()
+
