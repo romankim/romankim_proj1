@@ -1,9 +1,9 @@
-<html><head>
-    <script src="graphics.js"></script>
-    <script src="board.js"></script>
-    <!--  comment this out if you want to run tests
+<html>
+<head>
+    <title>Game of Life</title>
+    <script src="js/graphics.js"></script>
+    <script src="js/board.js"></script>
     <script src="test.js"></script>
-    -->
     <style>
 /*        #canvas_container {position: absolute; left: 100px; top: 100px; width: 400px; height: 400px;}
 	#canvas2_container {position: absolute; left: 100px; top: 600px; width: 400px; height: 400px;} */ 
@@ -43,8 +43,9 @@ define the HTML canvas element that will hold the graphical output
 <!--
 execute the JavaScript
 -->
-<script src="basic_drawing.js"></script>
+<script src="js/basic_drawing.js"></script>
 
 
 
-</body></html>
+</body>
+</html>
