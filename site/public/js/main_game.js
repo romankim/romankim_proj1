@@ -1,31 +1,65 @@
 
 (function () {
-    
-	// define some colors
-	var black = Color(0,0,0);
-	var red = Color(255,0,0);
-	var green = Color(0,255,0);
-	var blue = Color(0,0,255);
+
     
 	// create the drawing pad object and associate with the canvas
     // the graphical width and height is set in the style of the canvas element
-	pad = Pad(document.getElementById('canvas'));
     
     
     // define the number of cells in x-axis and y-axis
     var X_SIZE = 80;
     var Y_SIZE = 80;
     
-    board1 = Board(X_SIZE, Y_SIZE,start_state=1);
+    board1 = Board(X_SIZE, Y_SIZE);
     
     // the intermediary variable from board data to board graphics
-    var GRIDSIZE_X = pad.get_width() / X_SIZE;
-    var GRIDSIZE_Y = pad.get_height() / Y_SIZE;
+    var GRIDSIZE_X = $("#canvas").width() / X_SIZE;
+    var GRIDSIZE_Y = $("#canvas").height() / Y_SIZE;
     
+    
+    // event handlers    
+    clickHandler = function(event) {
+        $(this).removeClass("alive");
+        $(this).removeClass("dead");
+        $(this).addClass("alive");
+        var i = this.x;
+        var j = this.y;
+        board1.grid_array[i][j] = 1;
+        event.stopPropagation();
+    }
+    
+    var isMousedown = false;
+    
+    mousedownHandler = function(event) {
+        isMousedown = true;
+        $(this).removeClass("alive");
+        $(this).removeClass("dead");
+        $(this).addClass("alive");
+        var i = this.x;
+        var j = this.y;
+        board1.grid_array[i][j] = 1;
+        event.stopPropagation();
+    }
+    
+    mouseupHandler = function(event) {
+        isMousedown = false;
+    }
+    
+    mouseenterHandler = function(event) {
+        if (isMousedown === false) {
+            return;
+        }
+        $(this).removeClass("alive");
+        $(this).removeClass("dead");
+        $(this).addClass("alive");
+        var i = this.x;
+        var j = this.y;
+        board1.grid_array[i][j] = 1;
+        event.stopPropagation();
+    }
     
     
     //initialize DOM-based pane
-    
     cells = [];
     for(var i = 0; i < X_SIZE; i++) {
         
@@ -33,12 +67,22 @@
         
         for(var j = 0; j < Y_SIZE; j++) {
             var cell = document.createElement('div');
+            cell.x = i;
+            cell.y = j;
+            
             $(cell).addClass("cell")
                    .css("height",""+GRIDSIZE_Y)
                    .css("width",""+GRIDSIZE_X)
                    .css("left",""+i*GRIDSIZE_X)
                    .css("top",""+j*GRIDSIZE_Y)
-                   .appendTo($("#canvas2"));    
+                   .appendTo($("#canvas"));    
+            
+            
+            //$(cell).click(clickHandler);
+            $(cell).mousedown(mousedownHandler);
+            $(cell).mouseenter(mouseenterHandler);
+            $(window).mouseup(mouseupHandler);
+            
             cells[i][j] = cell;
             
             if(board1.grid_array[i][j]===1) {
@@ -52,21 +96,6 @@
     
     
     
-    // graphics paint function
-    paint = function() {
-        pad.clear();
-       
-        for(var i = 0; i < X_SIZE; i++) {
-            for(var j = 0; j < Y_SIZE; j++) {
-                if(board1.grid_array[i][j]===1) {
-                    pad.draw_rectangle(Coord(i*GRIDSIZE_X, j*GRIDSIZE_Y), GRIDSIZE_X,
-                    GRIDSIZE_Y, 1, green,green);
-                }
-            }
-        }
-        
-        pad.draw_rectangle(Coord(0,0), pad.get_width(), pad.get_height(), 5, black);
-    }
     
     // DOM paint function
     paint_dom = function() {
@@ -83,13 +112,11 @@
             }
         }
     }
-    
-    paint();
+
     paint_dom();
     
     var stepFunction = function() {
         board1.step();
-        paint();
         paint_dom();
     }
     

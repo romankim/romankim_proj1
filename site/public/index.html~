@@ -2,7 +2,6 @@
 <head>
     <title>Game of Life</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/graphics.js"></script>
     <script src="js/board.js"></script>
     <script src="js/test.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
@@ -21,18 +20,8 @@ define the HTML canvas element that will hold the graphical output
     <input id="togglebutton" type="button" value="run"/>
 </span>
 
-<div class="first canvas_container" > 
-    <canvas id="canvas" width="600" height="800" style="width: 100%; height: 100%;"></canvas>
-</div>
 
-<div id="canvas2" class="second canvas_container">
-	<div class="cell alive" style="width:50; height:50"></div>
-<div class="cell alive" style="width:50; height:50; left:50; top:0"></div>
-<div class="cell alive" style="width:50; height:50"></div>
-<div class="cell alive" style="width:50; height:50"></div>
-<div class="cell alive" style="width:50; height:50"></div>
-<div class="cell alive" style="width:50; height:50"></div>
-<div class="cell alive" style="width:50; height:50"></div>
+<div id="canvas" class="canvas_container">
 </div>
 
 

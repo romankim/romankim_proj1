@@ -6,6 +6,12 @@ var Board = function(x_grids, y_grids, start_state) {
         grid_array[i] = [];
     }
     
+    for (var i = 0; i < x_grids; i++) {
+        for (j = 0; j < y_grids; j++) {
+            grid_array[i][j] = 0;
+        }
+    }
+    
     // a "cross" starting state
     if(start_state===1) { 
         for (var i = 0; i < x_grids; i++) {
@@ -47,6 +53,7 @@ var Board = function(x_grids, y_grids, start_state) {
             }
         }
     }
+    
     
     var getAdjacentNeighbors = function(i, j, grid) {
         var sum = 0;

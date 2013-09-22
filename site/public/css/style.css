@@ -10,36 +10,14 @@ span
 }
 
 
-.canvas_container 
+#canvas 
 {
     position: absolute; 
     width: 400px; 
-    height: 400px
-}
-
-.first.canvas_container 
-{
+    height: 400px;
     left:100px; 
-    top:100px
-}
-
-.second.canvas_container 
-{
-    left:100px; 
-    top:550px; 
-    border-style:solid; 
-    margin-bottom:3cm;
-}
-                           
-.test
-{
-    left:100px; 
-    top:1000px; 
-    boarder-style:solid; 
-    position:relative;
-    background-color:blue; 
-    width:100px; 
-    height:100px
+    top:150px; 
+    border-style:solid;
 }
 
 .cell
@@ -54,5 +32,5 @@ span
         
 .dead 
 {
-    background-color:white 
+    background-color:white;
 }
