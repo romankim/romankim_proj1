@@ -1,12 +1,58 @@
-h1 {align:left; margin-left:100px}
-span {margin-left:100px}
+h1 
+{
+    align:left; 
+    margin-left:100px
+}
+
+span 
+{
+    margin-left:100px
+}
 
 
-.canvas_container { position: absolute; width: 400px; height: 400px;}
-.first.canvas_container {left:100px; top:100px}
-.second.canvas_container {left:550px; top:100px}
-.third.canvas_container {left:1000px; top:100px}
+.canvas_container 
+{
+    position: absolute; 
+    width: 400px; 
+    height: 400px
+}
 
-<!-- style for live and dead cells -->
-alive { background-color:green }
-dead { background-color:white }
+.first.canvas_container 
+{
+    left:100px; 
+    top:100px
+}
+
+.second.canvas_container 
+{
+    left:100px; 
+    top:550px; 
+    border-style:solid; 
+    margin-bottom:3cm;
+}
+                           
+.test
+{
+    left:100px; 
+    top:1000px; 
+    boarder-style:solid; 
+    position:relative;
+    background-color:blue; 
+    width:100px; 
+    height:100px
+}
+
+.cell
+{
+    position:absolute;
+}
+
+.alive 
+{
+    background-color:blue; 
+}
+        
+.dead 
+{
+    background-color:white 
+}
