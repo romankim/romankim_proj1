@@ -1,0 +1,12 @@
+h1 {align:left; margin-left:100px}
+span {margin-left:100px}
+
+
+.canvas_container { position: absolute; width: 400px; height: 400px;}
+.first.canvas_container {left:100px; top:100px}
+.second.canvas_container {left:550px; top:100px}
+.third.canvas_container {left:1000px; top:100px}
+
+<!-- style for live and dead cells -->
+alive { background-color:green }
+dead { background-color:white }

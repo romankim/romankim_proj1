@@ -1,16 +1,11 @@
 <html>
 <head>
     <title>Game of Life</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="js/graphics.js"></script>
     <script src="js/board.js"></script>
     <script src="js/test.js"></script>
-    <style>
-	.canvas_container { position: absolute; width: 400px; height: 400px;}
-        .first.canvas_container {left:100px; top:100px}
-	.second.canvas_container {left:550px; top:100px}
-	.third.canvas_container {left:1000px; top:100px} 
-	h1 {align:left; margin-left:100px}
-    </style>
+
 </head>
 
 <body>
@@ -41,7 +36,7 @@ define the HTML canvas element that will hold the graphical output
 <!--
 execute the JavaScript
 -->
-<script src="js/basic_drawing.js"></script>
+<script src="js/main_game.js"></script>
 
 
 
