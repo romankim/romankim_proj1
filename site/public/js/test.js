@@ -1,14 +1,16 @@
+
+// test some values around the boundary    
 var boundaryTest = function() {
     var board = new Board(40,40,1);
     
-    if (board.grid_array[18][0] !== 1) {
+    if (board.isDead(18,0)) {
         console.log("boundaryTest failed...");
         return;
     }
     
     board.step();
     
-    if (board.grid_array[18][0] !== 1) {
+    if (board.isDead(18,0)) {
         console.log("boundaryTest failed...");
         return;
     }
@@ -16,16 +18,18 @@ var boundaryTest = function() {
     console.log("boundaryTest passed...");
 }
 
+
+// make sure the step function of the Board runs as it is inteded
 var stepTest = function() {
     var board = new Board(40,40,3);
     board.step();
     
-    if (board.grid_array[2][0] !== 1) {
+    if (board.isDead(2,0)) {
         console.log("stepTest failed...");
         return;
     }
     
-    if (board.grid_array[37][37] !== 0) {
+    if (board.isAlive(37,37)) {
         console.log("stepTest failed...");
         return
     }
@@ -33,19 +37,22 @@ var stepTest = function() {
     console.log("stepTest passed...");
 }
 
+
+// create two instances of Boards and make sure one doesn't affect the other
 var modularityTest = function() {
     var board1 = new Board(40,40,1);
     var board2 = new Board(40,40,1);
     
     board1.step();
     
-    if(board1.grid_array[20][20] !== 0 || board2.grid_array[20][20] !== 1) {
+    if(board1.isAlive(20,20) || board2.isDead(20,20)) {
         console.log("modularityTest failed...");
         return;
     }
     
     console.log("modularityTest passed...");
 }
+
 
 boundaryTest();
 stepTest();
