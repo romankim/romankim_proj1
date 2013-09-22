@@ -1,18 +1,32 @@
+
+// A data representation of the state of the board
 var Board = function(x_grids, y_grids, start_state) {
+    
+    // a two dimensional array which contains either 0 or 1,
+    // where 0 represents a dead cell and 1 represents a live cell
+    // for simplicity, grid_array will be accessible externally
     var grid_array = [];
     
-    //create a buffer to write on
+    
+    // for an NxN Board, we will construct a 2NxN array
+    // the latter half of the array will be used as a buffer to store individual cell states
+    // before the entire Board state gets updated
     for(var i =0; i < x_grids*2; i++) {
         grid_array[i] = [];
     }
     
+    
+    
+    // initialize the board as an empty board with no live cells
     for (var i = 0; i < x_grids; i++) {
         for (j = 0; j < y_grids; j++) {
             grid_array[i][j] = 0;
         }
     }
     
-    // a "cross" starting state
+    
+    
+    // define a few starting states, mainly to utilize in test.js
     if(start_state===1) { 
         for (var i = 0; i < x_grids; i++) {
             for (j = 0; j < y_grids; j++) {
@@ -55,6 +69,11 @@ var Board = function(x_grids, y_grids, start_state) {
     }
     
     
+    
+    // returns the number of alive, adjacent cells
+    // if the cell is alive, it's state will be represented by integer 1 in this model,
+    // if the cell is dead, it will be 0
+    // so simply 'summing' all adjacent cells gives us the number of alive neighbors
     var getAdjacentNeighbors = function(i, j, grid) {
         var sum = 0;
         if(i-1 >= 0) {
@@ -87,6 +106,7 @@ var Board = function(x_grids, y_grids, start_state) {
     }
     
     
+    // a step function that updates the board according to Game of Life rules
     var step = function() {
         
         for (var i = 0; i < x_grids; i++) {
@@ -120,11 +140,12 @@ var Board = function(x_grids, y_grids, start_state) {
             for(var j = 0; j < y_grids; j++) {
                 grid_array[i][j] = grid_array[i+x_grids][j];   
             }
-        }
-        
-        
+        }   
     }
     
+    
+    
+    // return the Board object
     that = {};
     that.x_grids = x_grids;
     that.y_grids = y_grids;
