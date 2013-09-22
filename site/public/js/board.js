@@ -2,9 +2,11 @@
 // A data representation of the state of the board
 var Board = function(x_grids, y_grids, start_state) {
     
+    var that = Object.create(Board.prototype);
+    
     // a two dimensional array which contains either 0 or 1,
     // where 0 represents a dead cell and 1 represents a live cell
-    // for simplicity, grid_array will be accessible externally
+    // grid_array will not be accessible externally
     var grid_array = [];
     
     
@@ -107,7 +109,7 @@ var Board = function(x_grids, y_grids, start_state) {
     
     
     // a step function that updates the board according to Game of Life rules
-    var step = function() {
+    that.step = function() {
         
         for (var i = 0; i < x_grids; i++) {
             for (var j = 0; j < y_grids; j++) {
@@ -145,13 +147,51 @@ var Board = function(x_grids, y_grids, start_state) {
     
     
     
-    // return the Board object
-    that = {};
-    that.x_grids = x_grids;
-    that.y_grids = y_grids;
-    that.grid_array = grid_array;
-    that.step = step;
-    that.getAdjacentNeighbors = getAdjacentNeighbors;
+    // define few methods to manipulate the board from outside
+    var isValidCoord = function(x,y) {
+        var isValid = true;
+        if(x < 0 || x >= x_grids) {
+            isValid = false;
+        }
+        if(y < 0 || y >= y_grids) {
+            isValid = false;
+        }
+        return isValid;
+    }
+    
+    that.setAlive = function(x,y) {
+        if(!isValidCoord(x,y)) {
+            return;
+        }
+        
+        grid_array[x][y] = 1;
+    }
+    
+    that.setDead = function(x,y) {
+        if(!isValidCoord(x,y)) {
+            return;
+        }
+        
+        grid_array[x][y] = 0;
+    }
+    
+    that.isAlive = function(x,y) {
+        if(!isValidCoord(x,y)) {
+            throw new Error("referring to invalid cell");
+            return;
+        }
+        
+        return (grid_array[x][y] === 1);
+    }
+    
+    that.isDead = function(x,y) {
+        if(!isValidCoord(x,y)) {
+            throw new Error("referring to invalid cell");
+            return;
+        }
+        
+        return (grid_array[x][y] === 0);
+    }
     
     return that;
 }

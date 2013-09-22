@@ -32,7 +32,7 @@
         $(this).addClass("alive");
         var i = this.x;
         var j = this.y;
-        board1.grid_array[i][j] = 1;
+        board1.setAlive(i,j);
         event.stopPropagation();
     }
     
@@ -49,7 +49,7 @@
         $(this).addClass("alive");
         var i = this.x;
         var j = this.y;
-        board1.grid_array[i][j] = 1;
+        board1.setAlive(i,j);
         event.stopPropagation();
     }
     
@@ -83,7 +83,7 @@
             
             cells[i][j] = cell;
             
-            if(board1.grid_array[i][j]===1) {
+            if(board1.isAlive(i,j)) {
                 $(cell).addClass("alive");
             }
             else {
@@ -102,7 +102,7 @@
             for(var j = 0; j < Y_SIZE; j++) {
                 $(cells[i][j]).removeClass("alive");
                 $(cells[i][j]).removeClass("dead");
-                if(board1.grid_array[i][j]===1) {
+                if(board1.isAlive(i,j)) {
                     $(cells[i][j]).addClass("alive");
                 }
                 else {
